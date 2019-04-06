@@ -3,29 +3,37 @@
   <div class="container">
     <div class="row">
       <div class="col-10">
-          <h1>Hello {{ user.displayName }}!</h1>
+        <h1>Hello {{ user.displayName }}!</h1>
       </div>
       <div class="col-2">
-          <a class="btn btn-light" (click)="logout()"> Logout</a>
+        <a class="btn btn-light" (click)="logout()"> Logout</a>
       </div>
     </div>
+    <form #messageForm="ngForm">
+      <div class="row">
+        <div class="col">
+          <input type="text" [(ngModel)]="inputMessage" name="inputMessage" cols="10" class="form-control" />
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary" style="color:#fff;" (click)="sendMessage()">Send</button>
+        </div>
+      </div>
+    </form>
     <div class="row">
       <div class="col">
-        <input type="text" cols="10" class="form-control"/>
-      </div>
-      <div class="col">
-        <a class="btn btn-primary" style="color:#fff;" (click)="sendMessage()">Send</a>
+        <!-- empty row -->
+        <br/>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngFor="let message of messageStore | async">
       <div class="col">
-        Sender
+        {{ message.sender}}
       </div>
       <div class="col">
-        Message
+        {{ message.message }}
       </div>
       <div class="col">
-        Time
+        {{message.hour}}:{{message.minutes}}:{{message.seconds}} - {{message.day}}/{{message.month}}/{{message.year}}
       </div>
     </div>
   </div>
@@ -34,12 +42,12 @@
 <ng-template #loading>
   <!-- sign in with Google section-->
   <div class="outer-container">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <a class="btn btn-light" (click)="login()"> Sign in with Google</a>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-light" (click)="login()"> Sign in with Google</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </ng-template>
